@@ -11,6 +11,7 @@ app.use(bodyParse.json())
 
 const Pagamento = require('./models/Pagamento')
 
+
 app.engine('handlebars', expressHandlebars.engine({
     handlebars: allowInsecurePrototypeAccess(Handlebars)
 }))
@@ -53,6 +54,28 @@ app.get('/del-pagamento/:id', (request, response) => {
         // response.send('Apagado com Sucesso!')
     }).catch(() => {
         response.send('Não apagou')
+    })
+})
+
+app.get('/update/:id', (request, response) => {
+    Pagamento.findAll().then(function (update) {
+        response.render('update', { updates: update })       
+    })
+})
+
+app.post('/update/:id', async (request, response) => {
+    await Pagamento.update(
+        
+        { nome: request.body.nome, valor: request.body.valor },
+        {
+            where: { id: request.params.id }
+    }).then(() => {
+        
+        // console.log(resp)
+        // response.redirect('/update')
+        response.send('Atualizado com Sucesso!')
+    }).catch((error) => {
+        response.send('Não apagou' + error)
     })
 })
 app.listen(8080, () => console.log('Connected Success!!'))

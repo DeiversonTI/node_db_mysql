@@ -1,13 +1,15 @@
-<h1>Formulário para cadastar pagamentos</h1>
-
-<form action="/add-pagamento" method="post">
-    <div class="p-5">
-        <label>Nome: </label>
-        <input class=" border-2 rounded-md border-zinc-600" type="text" name="nome"><br><br>
-        <label>Valor: </label>
-        <input class=" border-2 rounded-md border-zinc-600" type="text" name="valor"><br><br>
-    </div>
-    <div class="w-full text-center">
-        <button class=" rounded-md bg-cyan-700 text-slate-50 py-2 px-10" type="submit">Cadastrar</button>
-    </div>
-</form>
+<h1 class="text-center pt-10 pb-5 text-xl">Formulário para cadastar pagamentos</h1>
+<div class="bg-green-100 my-10">
+    <form  action="/add-pagamento" method="post">
+        <div class="border-2 border-dotted p-5 text-center pt-5 ">
+            <label class="text-left">Nome: </label>
+            <input class=" border-2 rounded-md border-zinc-600" type="text" name="nome"><br><br>
+            <label>Valor: </label>
+            <input class=" border-2 rounded-md border-zinc-600" type="text" name="valor"><br><br>
+        </div>
+        <div class="w-full text-center">
+            <button class=" rounded-md bg-cyan-700 text-slate-50 py-2 px-10" type="submit">Cadastrar</button>
+        </div>
+        
+    </form>
+</div>
