@@ -7,10 +7,11 @@ const expressHandlebars = require('express-handlebars')
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
 
 app.use(bodyParse.urlencoded({ extended: false }))
+const urlEnconderParser = bodyParse.urlencoded({ extended: false })
+const { sequelize } = require('./models/db')
 app.use(bodyParse.json())
 
 const Pagamento = require('./models/Pagamento')
-
 
 app.engine('handlebars', expressHandlebars.engine({
     handlebars: allowInsecurePrototypeAccess(Handlebars)
@@ -57,25 +58,51 @@ app.get('/del-pagamento/:id', (request, response) => {
     })
 })
 
+//PUXA SOMENTE O ID DO USUARIO QUE FOI SOLICIDADO NO PAGAMENTO
 app.get('/update/:id', (request, response) => {
-    Pagamento.findAll().then(function (update) {
-        response.render('update', { updates: update })       
-    })
-})
 
-app.post('/update/:id', async (request, response) => {
-    await Pagamento.update(
-        
-        { nome: request.body.nome, valor: request.body.valor },
-        {
-            where: { id: request.params.id }
-    }).then(() => {
-        
-        // console.log(resp)
-        // response.redirect('/update')
-        response.send('Atualizado com Sucesso!')
-    }).catch((error) => {
-        response.send('Não apagou' + error)
+    var id = request.params.id
+    var query = `SELECT * FROM pagamentos WHERE id = "${id}"`
+
+    sequelize.query(query)
+    .then((resp) => {
+        console.log(JSON.stringify(resp, null, 2))
+        response.render('update', { updates: resp[0] })
     })
+    // Pagamento.findAll({
+    //     where: {
+    //         id: request.params.id,
+    //     }
+    // }).then((resp) => {
+    //     console.log(JSON.stringify(resp, null, 2))
+    //     response.render('update', { updates: resp })
+    // })
+
+})
+//REALIZA O UPLOAD DO PAGAMENTO
+app.post('/mensagem', urlEnconderParser, async (request, response) => {
+
+    var nome = request.body.nome
+    var valor = request.body.valor
+    var id = request.body.id
+
+    var query =
+        `
+    UPDATE pagamentos SET
+    nome ="${nome}",
+    valor = "${valor}"
+    WHERE
+    id = "${id}"
+`
+
+    sequelize.query(query)
+        .then(() => {
+            // console.log('Atualizado')
+            response.render('mensagem')
+        }).catch(() => {
+            console.log('erro na atualização')
+        })
+
+    // await Pagamento.update()
 })
 app.listen(8080, () => console.log('Connected Success!!'))

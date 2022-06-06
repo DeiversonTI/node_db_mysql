@@ -6,7 +6,7 @@ const Pagamento = conn.sequelize.define('pagamentos', {
         type: conn.Sequelize.STRING
     },
     valor: {
-        type: conn.Sequelize.DOUBLE
+        type: conn.Sequelize.STRING
     }
 })
 

@@ -1,15 +1,17 @@
 <h1>Página de atualização</h1>
 
-<form action="/update/{{id}}" method="post" >
+<form action="/mensagem" method="post" >
     <div class="p-5">
         {{#each updates}}
+           
+            <input class="text-xl text-red-600 w-14 pl-2 rounded-2"  type="hidden" name="id" value="{{id}}"><br>
             <label>Nome: </label>
-            <input value={{nome}} class=" border-2 rounded-md border-zinc-600" type="text" name="nome"><br><br>
+            <input class=" w-full border-2 rounded-md border-zinc-600" type="text"  name="nome" value = "{{ nome }}"><br><br>
             <label>Valor: </label>
             <input value={{valor}} class=" border-2 rounded-md border-zinc-600" type="text" name="valor"><br><br>
             </div>
-            <div class="w-full text-center">
-                <a href="/up-page/{{id}}"><button>Atualizar</button></a>
+            <div class="text-center flex items-center justify-center  ">
+                <button class="text-center flex rounded-md bg-cyan-700 text-slate-50 py-2 px-10">Atualizar</button></a>
             </div>
         {{/each}}
 </form>
