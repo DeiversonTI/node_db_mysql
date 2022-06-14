@@ -5,7 +5,7 @@ const path = require('path')
 const cors = require('cors')
 const newPort = process.env.PORT || 3000
 // const handlebarsExp = require('express-handlebars')
-const uploadsImg = require('./models/db_up')
+const  Upload  = require('./models/db_up')
 const bodyParse = require('body-parser')
 const Handlebars = require('handlebars')
 const expressHandlebars = require('express-handlebars')
@@ -155,9 +155,9 @@ app.post("/profile", upload.single('imageUp'), async (req, res) => {
     } else {
 
        
-        var imgsrc = 'http://localhost:8081/files/images/'
+        var imgsrc = process.env.PORT  ||  'http://localhost:3000/files/images/'
 
-        await uploadsImg.create({
+        await Upload.create({
 
             Imagens: imgsrc + req.file.filename,
             Name: req.file.filename,
@@ -166,7 +166,9 @@ app.post("/profile", upload.single('imageUp'), async (req, res) => {
             }
         })
             .then(() => {
-                res.render('mensagem')
+               
+                res.redirect('/imagens-uploads-back')
+               
                 console.log('Enviado com sucesso, tudo Ok!')
             }).catch(() => {
                 console.log('Error no banco - Não enviado!')
@@ -188,7 +190,7 @@ app.post("/profile", upload.single('imageUp'), async (req, res) => {
 });
 
 app.get('/imagens-uploads', async (request, response) => {
-    await uploadsImg.findAll()
+    await Upload.findAll()
 
         .then((resp) => {
             // console.log(JSON.stringify(resp, null, 2))
@@ -203,7 +205,7 @@ app.get('/imagens-uploads', async (request, response) => {
         })
 })
 app.get('/imagens-uploads-back', async (request, response) => {
-    await uploadsImg.findAll()
+    await Upload.findAll()
 
         .then((user) => {
            
@@ -211,7 +213,7 @@ app.get('/imagens-uploads-back', async (request, response) => {
           
 
         }).catch((error) => {
-            console.log('houve um error' + error)
+            console.log('houve um erro' + error)
         })
 })
 
