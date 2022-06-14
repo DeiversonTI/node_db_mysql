@@ -3,6 +3,7 @@ const app = express()
 const multer = require('multer')
 const path = require('path')
 const cors = require('cors')
+const newPort = process.env.PORT || 3000
 // const handlebarsExp = require('express-handlebars')
 const uploadsImg = require('./models/db_up')
 const bodyParse = require('body-parser')
@@ -215,4 +216,6 @@ app.get('/imagens-uploads-back', async (request, response) => {
 })
 
 
-app.listen(process.env.PORT || 8081, () => console.log('Connected Success!!'))
+app.listen(newPort, () => {
+    console.log('Server, Connected Success!!')
+})
