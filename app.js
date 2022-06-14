@@ -17,7 +17,6 @@ app.use(bodyParse.json())
 
 const Pagamento = require('./models/Pagamento')
 
-const port =  process.env.PORT || 8081
 
 app.engine('handlebars', expressHandlebars.engine({
     handlebars: allowInsecurePrototypeAccess(Handlebars)
@@ -216,4 +215,4 @@ app.get('/imagens-uploads-back', async (request, response) => {
 })
 
 
-app.listen(port, () => console.log('Connected Success!!'))
+app.listen(process.env.PORT || 8081, () => console.log('Connected Success!!'))
