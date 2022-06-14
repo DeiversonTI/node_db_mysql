@@ -11,7 +11,7 @@ const sequelize = new Sequelize('ersvp298_carodromo', 'ersvp298_UseCaro' , 'Asvp
     host: '192.185.208.53', 
     dialect: 'mysql'
 
-});
+})
 module.exports = {
     Sequelize: Sequelize,
     sequelize: sequelize
