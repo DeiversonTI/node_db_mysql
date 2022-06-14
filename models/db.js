@@ -7,7 +7,7 @@ const Sequelize = require('sequelize')
 // })
 
 
-const sequelize = new Sequelize('ersvp298_carodromo', 'ersvp298_UseCaro' , 'Asvp60anos', {
+const sequelize = new Sequelize('ersvp298_carodromo', 'ersvp298_UseCaro' , '+7yd83mD[XY+', {
     host: '192.185.208.53', 
     dialect: 'mysql',
     port: 3306
